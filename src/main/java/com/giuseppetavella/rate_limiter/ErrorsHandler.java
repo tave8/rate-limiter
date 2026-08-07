@@ -1,6 +1,6 @@
 package com.giuseppetavella.rate_limiter;
 
-import com.giuseppetavella.rate_limiter.history_queue.TooManyEventsInWindowException;
+import com.giuseppetavella.rate_limiter_algo.TooManyEventsInWindowException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;

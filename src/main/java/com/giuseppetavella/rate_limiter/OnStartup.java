@@ -1,6 +1,6 @@
 package com.giuseppetavella.rate_limiter;
 
-import com.giuseppetavella.rate_limiter.history_queue.HistoryQueue;
+import com.giuseppetavella.rate_limiter_algo.HistoryQueue;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
