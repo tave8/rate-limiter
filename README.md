@@ -12,6 +12,17 @@ To change the output jar, add this to your pom.xml (inside the "build" tag):
 
 Then:
 
+Every time you make a change to the project, you need to build into a jar, like so 
+(Make sure to  use the --build flag for Docker Compose; if you use just click on Docker Compose from the IDE,
+it's likely you won't see the updated project, because Docker will has cached the image. With --build, you force 
+to rebuild the image.):
+
+`
+./mvnw clean package -DskipTests
+
+docker compose up --build
+`
+
 1. Have Dockerfile ready
 2. Have Docker Compose file ready
 3. Make sure Docker daemon is running

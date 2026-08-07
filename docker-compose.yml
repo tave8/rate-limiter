@@ -7,10 +7,7 @@
 
 
 services:
-  # Client
-#  client:
-    
-    
+        
   # Rate Limiter 
   rate-limiter:
     build: .
@@ -20,7 +17,3 @@ services:
       SPRING_PROFILES_ACTIVE: local # Spring "local" profile, and all its properties, will be used
       SERVER_PORT: 9000 # This is the port of the java server. It overrides the port defined in "local" profile
     
-  # Server
-#  server:
-    
-

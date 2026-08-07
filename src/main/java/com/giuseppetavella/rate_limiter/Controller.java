@@ -8,7 +8,7 @@ public class Controller {
     
     @GetMapping
     public String checkServerOk() {
-        return "server running";
+        return "rate limiter - server running";
     }
     
     @PostMapping("/{serviceEndpointWithoutSlash}")
