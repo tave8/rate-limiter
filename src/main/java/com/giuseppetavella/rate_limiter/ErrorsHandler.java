@@ -1,5 +1,6 @@
 package com.giuseppetavella.rate_limiter;
 
+import com.giuseppetavella.rate_limiter.history_queue.TooManyEventsInWindowException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -21,6 +22,22 @@ import java.util.List;
 @RestControllerAdvice
 public class ErrorsHandler {
 
+    /**
+     * This exception is the core mechanism through which 
+     * we rate limit the services.
+     * 
+     * @param ex
+     * @param request
+     * @return
+     */
+    @ExceptionHandler(TooManyEventsInWindowException.class)
+    @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+    public ErrorsToSendDTO handleTooManyRequests(TooManyEventsInWindowException ex, HttpServletRequest request) {
+        String msg = ex.getMessage();
+        return new ErrorsToSendDTO(msg);
+    }
+    
+    
     @ExceptionHandler(EndpointNotMappedToServiceException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorsToSendDTO handleEndpointNotMappedToService(EndpointNotMappedToServiceException ex, HttpServletRequest request) {

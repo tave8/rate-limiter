@@ -6,15 +6,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/")
 public class Controller {
     
+    @GetMapping
+    public String checkServerOk() {
+        return "server running";
+    }
+    
     @PostMapping("/{serviceEndpointWithoutSlash}")
     public String handleService(
             @PathVariable String serviceEndpointWithoutSlash) 
     {
+        
         var serviceHistory = ServiceHistories.getByEndpoint("/"+serviceEndpointWithoutSlash);
         
-        System.out.println(serviceHistory);
+        serviceHistory.history().add();
         
-        return "server running";
+        // System.out.println(serviceHistory);
+        
+        return "called service %s".formatted(serviceHistory.mapping().serviceName());
     }
     
 }

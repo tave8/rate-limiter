@@ -24,7 +24,8 @@ public class ServiceHistories {
     }
 
     /**
-     * Find the ServiceHistory object matching this endpoint.
+     * Get the history of the service that was requested at the given endpoint.
+     * The history is in-memory and each service has its own.
      * 
      * @return
      */
