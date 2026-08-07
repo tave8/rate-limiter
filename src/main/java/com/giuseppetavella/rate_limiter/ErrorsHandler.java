@@ -21,6 +21,13 @@ import java.util.List;
 @RestControllerAdvice
 public class ErrorsHandler {
 
+    @ExceptionHandler(EndpointNotMappedToServiceException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorsToSendDTO handleEndpointNotMappedToService(EndpointNotMappedToServiceException ex, HttpServletRequest request) {
+        String msg = ex.getMessage();
+        return new ErrorsToSendDTO(msg);
+    }
+    
     /**
      * This is the 404 error.
      */
