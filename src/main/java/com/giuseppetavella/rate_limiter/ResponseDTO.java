@@ -1,17 +1,25 @@
 package com.giuseppetavella.rate_limiter;
 
-public class ResponseDTO<T> {
+/**
+ * The standard response DTO to each request.
+ * Service-specific DTOs can be added to and are found
+ * at the <code>responseDTO.details</code> field.
+ * 
+ * @param <T> an optional, service-specific response DTO 
+ *           found at the <code>responseDTO.details</code> field
+ */
+public class ResponseDTO<T extends ServiceDetailsDTO> {
     private final int statusCode;
     private final String text;
-    private final T more;
+    private final T serviceDetails;
     
     public ResponseDTO(int statusCode, 
                        String text,
-                       T more) 
+                       T serviceDetails) 
     {
         this.statusCode = statusCode;
         this.text = text;
-        this.more = more;
+        this.serviceDetails = serviceDetails;
     }
     
     public ResponseDTO(int statusCode,
@@ -20,8 +28,8 @@ public class ResponseDTO<T> {
         this(statusCode, text, null);
     }
 
-    public T getMore() {
-        return more;
+    public T getServiceDetails() {
+        return serviceDetails;
     }
 
     public int getStatusCode() {
