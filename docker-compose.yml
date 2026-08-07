@@ -1,0 +1,19 @@
+
+# ********** SERVICES *************************
+# ------------------------------------------------
+#      SERVICE              |       ADDRESS
+# ----------------------------------------------
+#    rate limiter                  localhost:9000               
+
+
+services:
+  # Rate Limiter - server  
+  rate-limiter-server:
+    build: .
+    ports:
+      - "9000:9000"
+    environment:
+      # I have an application-local.properties (LOCAL)      
+      SPRING_PROFILES_ACTIVE: local    
+      SERVER_PORT: 9000
+

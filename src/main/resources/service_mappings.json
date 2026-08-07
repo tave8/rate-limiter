@@ -1,5 +1,12 @@
 [
   {
+    "serviceName": "testing",
+    "incomingEndpoint": "/testing",
+    "maxEvents": 10,
+    "window": 1000,
+    "serviceUrl": "NOT APPLICABLE"
+  },
+  {
     "serviceName": "email-api",
     "incomingEndpoint": "/email-api",
     "maxEvents": 5,
@@ -7,10 +14,10 @@
     "serviceUrl": "http://localhost:9001"
   },
   {
-    "serviceName": "testing",
-    "incomingEndpoint": "/testing",
-    "maxEvents": 10,
+    "serviceName": "ai-api",
+    "incomingEndpoint": "/ai-api",
+    "maxEvents": 2,
     "window": 1000,
-    "serviceUrl": "http://localhost:9001"
+    "serviceUrl": "http://localhost:9002"
   }
 ]
