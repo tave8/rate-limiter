@@ -30,13 +30,6 @@
 		<java.version>25</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>com.giuseppetavella</groupId>
-			<artifactId>rate-limiter-algo</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libs/rate-limiter-algo-0.0.1-SNAPSHOT.jar</systemPath>
-		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

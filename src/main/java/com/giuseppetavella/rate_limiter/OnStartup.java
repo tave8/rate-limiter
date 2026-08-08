@@ -1,6 +1,6 @@
 package com.giuseppetavella.rate_limiter;
 
-import com.giuseppetavella.rate_limiter_algo.HistoryQueue;
+import com.giuseppetavella.rate_limiter.libs.HistoryQueue;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
+  
 @Component
 public class OnStartup implements CommandLineRunner {
 
