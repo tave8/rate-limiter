@@ -1,5 +1,14 @@
 ## Build & Docker
 
+Run both containers (rate limiter and rate limiter server):
+
+```
+docker run -p 9000:9000 -d rate-limiter
+
+docker run -p 9100:9100 -d rate-limiter-server
+
+```
+
 To change the output jar, add this to your pom.xml (inside the "build" tag):
 
 ```xml
