@@ -11,13 +11,13 @@
     "incomingEndpoint": "/email-api",
     "maxEvents": 5,
     "window": 1000,
-    "serviceUrl": "https://webhook.site/ac565818-403d-420c-aa24-c3ab898abf79"
+    "serviceUrl": "http://localhost:9050/email-api"
   },
   {
     "serviceName": "ai-api",
     "incomingEndpoint": "/ai-api",
     "maxEvents": 2,
     "window": 1000,
-    "serviceUrl": "http://localhost:9002"
+    "serviceUrl": "http://localhost:9050/ai-api"
   }
 ]

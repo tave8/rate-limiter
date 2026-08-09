@@ -23,7 +23,7 @@ public class Controller {
     
     @GetMapping
     public String checkServerOk() {
-        return "rate limiter - server running";
+        return "rater limiter: middleman. up and running.";
     }
 
     @PostMapping("/{serviceEndpointWithoutSlash}")
