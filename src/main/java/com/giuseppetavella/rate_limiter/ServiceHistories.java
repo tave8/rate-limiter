@@ -1,22 +1,21 @@
 package com.giuseppetavella.rate_limiter;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Component
 public class ServiceHistories {
-    private static List<ServiceHistory> instance;
+    private static List<ServiceRateLimiter> instance;
     
-    public static List<ServiceHistory> getInstance() {
+    public static List<ServiceRateLimiter> getInstance() {
         if(instance == null) {
             throw new RuntimeException("instance is null");
         }
         return instance;
     }
     
-    public static void setInstance(List<ServiceHistory> list) {
+    public static void setInstance(List<ServiceRateLimiter> list) {
         if(instance != null) {
             throw new RuntimeException("instance was already set.");
         }
@@ -29,7 +28,7 @@ public class ServiceHistories {
      * 
      * @return
      */
-    public static ServiceHistory getByEndpoint(String endpoint) 
+    public static ServiceRateLimiter getByEndpoint(String endpoint) 
                                                 throws EndpointNotMappedToServiceException
     {
         for(var serviceHistory : instance) {

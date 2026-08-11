@@ -1,6 +1,6 @@
 package com.giuseppetavella.rate_limiter;
 
-import com.giuseppetavella.rate_limiter.libs.HistoryQueue;
+import com.giuseppetavella.rate_limiter_algo.timeline.TimelineManager;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,6 @@ import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
   
@@ -27,7 +26,7 @@ public class OnStartup implements CommandLineRunner {
         // Load JSON of service mappings from src/main/resources/service_mappings.json
         ClassPathResource resource = new ClassPathResource("service_mappings.json");
         List<ServiceMapping> mappings;
-        List<ServiceHistory> serviceHistories = new LinkedList<>();
+        List<ServiceRateLimiter> serviceHistories = new LinkedList<>();
         
         try (InputStream inputStream = resource.getInputStream()) {
             mappings = objectMapper.readValue(
@@ -40,9 +39,9 @@ public class OnStartup implements CommandLineRunner {
         }
         
         mappings.forEach(mapping -> {
-            var serviceHistory = new ServiceHistory(
+            var serviceHistory = new ServiceRateLimiter(
                     mapping, 
-                    new HistoryQueue(mapping.maxEvents(), mapping.window()) 
+                    new TimelineManager(mapping.maxEvents(), mapping.window()) 
             );
            serviceHistories.add(serviceHistory);
         });

@@ -1,5 +1,9 @@
 package com.giuseppetavella.rate_limiter;
 
+import com.giuseppetavella.rate_limiter_algo.Clock;
+import com.giuseppetavella.rate_limiter_algo.history_queue.HistoryQueue;
+import com.giuseppetavella.rate_limiter_algo.timeline.ReactiveTimeline;
+import com.giuseppetavella.rate_limiter_algo.timeline.TimelineManager;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +27,7 @@ public class Controller {
     
     @GetMapping
     public String checkServerOk() {
+    
         return "rater limiter: middleman. up and running.";
     }
 
@@ -32,10 +37,11 @@ public class Controller {
             @RequestBody(required = false) byte[] rawBytes,
             HttpServletRequest request)
     {
-        var serviceHistory = ServiceHistories.getByEndpoint("/" + serviceEndpointWithoutSlash);
-        serviceHistory.history().add(); // Rate limiter
+        var serviceRateLimiter = ServiceHistories.getByEndpoint("/" + serviceEndpointWithoutSlash);
+        
+        serviceRateLimiter.limiter().add(); // Rate limiter
 
-        String serviceUrl = serviceHistory.mapping().serviceUrl();
+        String serviceUrl = serviceRateLimiter.mapping().serviceUrl();
 
         // 1. Extract and forward incoming HTTP Headers
         HttpHeaders headers = new HttpHeaders();
