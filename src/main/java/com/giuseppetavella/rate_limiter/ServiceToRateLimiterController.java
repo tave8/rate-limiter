@@ -48,7 +48,7 @@ public class ServiceToRateLimiterController {
         // Try adding new event
         if( !limiter.add() ) {
             // Rate limiter rejected new event, so end request
-            throw new EventRejectedException(limiter);
+            throw new EventRejectedException("Too many requests (Rate Limiter middleman). Reason: %s".formatted(limiter.getRejectionReason()));
         }
 
         // Rate limiter added event, so request can be forwarded

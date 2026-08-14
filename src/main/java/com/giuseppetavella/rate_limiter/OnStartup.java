@@ -57,6 +57,15 @@ public class OnStartup implements CommandLineRunner {
         mappings.forEach(mapping -> {
             var limiter = new TimelineRateLimiter.Builder(mapping.maxEvents(), mapping.window())
                     .speed(RateLimiterSpeed.NORMAL)
+                    .eventFilterer(t -> {
+                        // if(t.isBeforeWindowThreshold(.9) 
+                        //         && t.isAfterEventTreshold(.95)) {
+                        //     return false;
+                        // }
+                        // return t.isBeforeEventThreshold(.95);
+                        // return false;
+                        return true;
+                    })
                     .build();
             
             limiter.start();
@@ -67,6 +76,8 @@ public class OnStartup implements CommandLineRunner {
             );
             
            serviceRateLimiters.add(serviceHistory);
+           
+           log.info("Built Rate Limiter {}", limiter);
         });
         
         ServiceRateLimiters.setInstance(serviceRateLimiters);
