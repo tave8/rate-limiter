@@ -16,6 +16,8 @@ public class Config {
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
 
+        // When destination server responds with non-ok,
+        // do not throw exception in this server
         restTemplate.setErrorHandler(new DefaultResponseErrorHandler() {
             @Override
             public boolean hasError(ClientHttpResponse response) throws IOException {

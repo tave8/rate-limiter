@@ -9,7 +9,7 @@
   {
     "serviceName": "email-api",
     "incomingEndpoint": "/email-api",
-    "maxEvents": 10000,
+    "maxEvents": 5,
     "window": 1000,
     "serviceUrl": "http://localhost:9050/email-api"
   },

@@ -1,5 +1,6 @@
 package com.giuseppetavella.rate_limiter;
 
+import com.giuseppetavella.rate_limiter_algo.EventRejectedException;
 import com.giuseppetavella.rate_limiter_algo.TooManyEventsInWindowException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -30,9 +31,9 @@ public class ErrorsHandler {
      * @param request
      * @return
      */
-    @ExceptionHandler(TooManyEventsInWindowException.class)
+    @ExceptionHandler(EventRejectedException.class)
     @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
-    public ErrorsToSendDTO handleTooManyRequests(TooManyEventsInWindowException ex, HttpServletRequest request) {
+    public ErrorsToSendDTO handleEventRejected(EventRejectedException ex, HttpServletRequest request) {
         String msg = ex.getMessage();
         return new ErrorsToSendDTO(msg);
     }

@@ -1,27 +1,20 @@
 package com.giuseppetavella.rate_limiter;
 
-import com.giuseppetavella.rate_limiter_algo.Clock;
-import com.giuseppetavella.rate_limiter_algo.history_queue.HistoryQueue;
-import com.giuseppetavella.rate_limiter_algo.timeline.ReactiveTimeline;
-import com.giuseppetavella.rate_limiter_algo.timeline.TimelineManager;
+import com.giuseppetavella.rate_limiter_algo.EventRejectedException;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 @RestController
 @RequestMapping("/")
-public class Controller {
+public class ServiceToRateLimiterController {
     
     private final RestTemplate restTemplate;
     
-    public Controller(RestTemplate restTemplate) {
+    public ServiceToRateLimiterController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
     
@@ -31,17 +24,36 @@ public class Controller {
         return "rater limiter: middleman. up and running.";
     }
 
+    /**
+     * Maps service to rate limiter. 
+     * 
+     * @param serviceEndpointWithoutSlash
+     * @param rawBytes
+     * @param request
+     * @return
+     */
     @PostMapping("/{serviceEndpointWithoutSlash}")
     public ResponseEntity<byte[]> handleService(
             @PathVariable String serviceEndpointWithoutSlash,
             @RequestBody(required = false) byte[] rawBytes,
             HttpServletRequest request)
     {
-        var serviceRateLimiter = ServiceHistories.getByEndpoint("/" + serviceEndpointWithoutSlash);
+        // Get the pair rate limiter and the service info based on endpoint
+        var serviceRateLimiter = ServiceRateLimiters.getByEndpoint("/" + serviceEndpointWithoutSlash);
+        // The service associated to this endpoint
+        var service = serviceRateLimiter.mapping();
+        // The rate limiter associated to the service associated to this endpoint
+        var limiter = serviceRateLimiter.limiter();
         
-        serviceRateLimiter.limiter().add(); // Rate limiter
+        // Try adding new event
+        if( !limiter.add() ) {
+            // Rate limiter rejected new event, so end request
+            throw new EventRejectedException(limiter);
+        }
 
-        String serviceUrl = serviceRateLimiter.mapping().serviceUrl();
+        // Rate limiter added event, so request can be forwarded
+        // to destination service 
+        String serviceUrl = service.serviceUrl();
 
         // 1. Extract and forward incoming HTTP Headers
         HttpHeaders headers = new HttpHeaders();

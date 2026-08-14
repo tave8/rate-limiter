@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>com.github.tave8</groupId>
 			<artifactId>rate-limiter-algo</artifactId>
-			<version>master-SNAPSHOT</version> 
+			<version>v1.0.2</version> 
 		</dependency>
 		
 		
